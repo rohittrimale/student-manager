@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Header from "./component/Header";
+import Form from "./component/Form";
+import UserProvider from "./component/store/UserProvider";
+import { useContext } from "react";
+import UserContext from "./component/store/user-context";
+import ShowData from "./component/ShowData/ShowData";
 
 function App() {
+  const userCtx = useContext(UserContext);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {userCtx.isFormVisible && <Form />}
+      <Header userCount={userCtx.users.length} onFormShow={userCtx.formShown} />
+      <ShowData usersData={userCtx.users} />
     </div>
   );
 }
